@@ -1,7 +1,7 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 
-const Car1 = (props: any) => {
+const Lambargini = (props: any) => {
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/car1.glb");
 
@@ -489,4 +489,4 @@ const Car1 = (props: any) => {
 
 useGLTF.preload("/models/car1.glb");
 
-export default Car1;
+export default Lambargini;

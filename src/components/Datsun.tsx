@@ -1,7 +1,7 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 
-const Car2 = (props: any) => {
+const Datsun = (props: any) => {
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/car2.glb");
 
@@ -61,4 +61,4 @@ const Car2 = (props: any) => {
 
 useGLTF.preload("/models/car2.glb");
 
-export default Car2;
+export default Datsun;
