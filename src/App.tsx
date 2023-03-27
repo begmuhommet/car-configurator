@@ -7,12 +7,12 @@ import { Perf } from "r3f-perf";
 function App() {
   return (
     <div className="container">
-      <Canvas shadows>
+      <Canvas shadows camera={{ position: [1, 0.5, 1] }}>
         <Perf position="top-left" />
         <Suspense fallback={null}>
           <World />
         </Suspense>
-        {/*<color attach="background" args={["#101010"]} />*/}
+        <color attach="background" args={["#101010"]} />
       </Canvas>
       <Loader />
     </div>
