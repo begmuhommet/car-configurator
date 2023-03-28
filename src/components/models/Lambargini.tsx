@@ -1,10 +1,55 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
+import { GroupProps } from "@react-three/fiber";
+import { Color, MeshStandardMaterial } from "three";
 
-const Lambargini = (props: any) => {
+interface IProps extends GroupProps {
+  color: string;
+  castShadow: boolean;
+  receiveShadow?: boolean;
+}
+
+// universal_whee     -
+// chrome             -
+// rimschrome         -
+// breakdiscs         +
+// tiresgum           -
+// logo               -
+// whitecar           +++
+// breaksredpaint     -
+// chromeblurred      +
+// greyelements       +
+// frameblack         -
+// blackpaint         +
+// breakdiscs_1       +
+// default_material   -
+// emitbrake          -
+// material           +
+// lightsfrontled     -
+// mirror             -
+// lightsglassback    -
+// lightsglassfront   -
+// glass              -
+
+const materialNames = [""];
+
+const Lambargini: React.FC<IProps> = (props) => {
+  const { color, castShadow, receiveShadow } = props;
+
+  // Hooks
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/lambargini.glb");
 
+  // Variables and functions
+  Object.entries(materials).forEach(([key, value]) => {
+    const name = key.toLowerCase();
+    if (name.includes("whitecar")) {
+      materialNames.push(name);
+      (value as MeshStandardMaterial).color = new Color(color);
+    }
+  });
+
+  // Renders
   return (
     <group {...props} dispose={null}>
       <group position={[0, 2.7, -119]}>
