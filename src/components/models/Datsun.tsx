@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
+import { Color, MeshStandardMaterial } from "three";
 
-const Datsun = (props: any) => {
+interface IProps {
+  color: string;
+}
+
+// alloy            -
+// black_matte      -
+// black_paint      -
+// chrome           +
+// glass            -
+// headlights       -
+// license          -
+// orange_glass     -
+// paint            +
+// red_glass        -
+// stickers         -
+
+const Datsun: React.FC<IProps> = (props) => {
+  const { color } = props;
+
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/datsun.glb");
+
+  useEffect(() => {
+    Object.entries(materials).forEach(([key, value]) => {
+      if (key.includes("paint") || key.includes("alloy")) {
+        (value as MeshStandardMaterial).color = new Color(color);
+      }
+    });
+  }, [color]);
 
   return (
     <group {...props} dispose={null}>
