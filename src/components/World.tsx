@@ -15,7 +15,7 @@ const World = () => {
     model: {
       options: [CarModel.Lambargini, CarModel.Datsun, CarModel.Porsche],
     },
-    color: "#b78135",
+    color: "#9a9a9a",
     autoRotate: true,
   });
 
@@ -26,11 +26,9 @@ const World = () => {
         environment="city"
         shadows={{ type: "accumulative", color, colorBlend: 2, opacity: 2 }}
       >
-        {model === CarModel.Lambargini && (
-          <Lambargini color={color} castShadow />
-        )}
-        {model === CarModel.Datsun && <Datsun color={color} castShadow />}
-        {model === CarModel.Porsche && <Porsche color={color} castShadow />}
+        {model === CarModel.Lambargini && <Lambargini color={color} />}
+        {model === CarModel.Datsun && <Datsun color={color} />}
+        {model === CarModel.Porsche && <Porsche color={color} />}
       </Stage>
       <OrbitControls
         makeDefault

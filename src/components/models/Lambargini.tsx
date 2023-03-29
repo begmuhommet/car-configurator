@@ -1,13 +1,6 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
-import { GroupProps } from "@react-three/fiber";
 import { Color, MeshStandardMaterial } from "three";
-
-interface IProps extends GroupProps {
-  color: string;
-  castShadow: boolean;
-  receiveShadow?: boolean;
-}
 
 // universal_whee     -
 // chrome             -
@@ -31,25 +24,23 @@ interface IProps extends GroupProps {
 // lightsglassfront   -
 // glass              -
 
-const materialNames = [""];
+interface IProps {
+  color: string;
+}
 
 const Lambargini: React.FC<IProps> = (props) => {
-  const { color, castShadow, receiveShadow } = props;
+  const { color } = props;
 
-  // Hooks
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/lambargini.glb");
 
-  // Variables and functions
   Object.entries(materials).forEach(([key, value]) => {
     const name = key.toLowerCase();
     if (name.includes("whitecar")) {
-      materialNames.push(name);
       (value as MeshStandardMaterial).color = new Color(color);
     }
   });
 
-  // Renders
   return (
     <group {...props} dispose={null}>
       <group position={[0, 2.7, -119]}>

@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const Porsche: React.FC<IProps> = (props) => {
-  const { color } = props;
+  const { color, ...rest } = props;
 
   // @ts-ignore
   const { nodes, materials } = useGLTF("/models/porsche.glb");
@@ -21,8 +21,8 @@ const Porsche: React.FC<IProps> = (props) => {
   }, [color]);
 
   return (
-    <group {...props} dispose={null}>
-      <group scale={1}>
+    <group {...rest} dispose={null}>
+      <group>
         <mesh geometry={nodes.Mesh_0_1.geometry} material={materials.paint} />
         <mesh
           geometry={nodes.Mesh_0_2.geometry}

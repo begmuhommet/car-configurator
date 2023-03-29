@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
+
 import { useGLTF } from "@react-three/drei";
 import { Color, MeshStandardMaterial } from "three";
-
-interface IProps {
-  color: string;
-}
 
 // alloy            -
 // black_matte      -
@@ -17,6 +14,10 @@ interface IProps {
 // paint            +
 // red_glass        -
 // stickers         -
+
+interface IProps {
+  color: string;
+}
 
 const Datsun: React.FC<IProps> = (props) => {
   const { color } = props;

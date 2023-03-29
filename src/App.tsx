@@ -12,7 +12,7 @@ function App() {
         <Suspense fallback={null}>
           <World />
         </Suspense>
-        <color attach="background" args={["#101010"]} />
+        <color attach="background" args={["#f0f0f0"]} />
       </Canvas>
       <Loader />
     </div>
