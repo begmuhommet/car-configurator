@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { Color, MeshStandardMaterial } from "three";
 
@@ -29,10 +29,14 @@ interface IProps {
 }
 
 const Lambargini: React.FC<IProps> = (props) => {
-  const { color } = props;
+  const { color, ...rest } = props;
 
   // @ts-ignore
-  const { nodes, materials } = useGLTF("/models/lambargini.glb");
+  const { scene, nodes, materials } = useGLTF("/models/lambargini.glb");
+
+  useLayoutEffect(() => {
+    scene.traverse((obj) => obj.type === "Mesh" && (obj.castShadow = true));
+  }, [scene]);
 
   Object.entries(materials).forEach(([key, value]) => {
     const name = key.toLowerCase();
@@ -42,7 +46,7 @@ const Lambargini: React.FC<IProps> = (props) => {
   });
 
   return (
-    <group {...props} dispose={null}>
+    <group {...rest} dispose={null}>
       <group position={[0, 2.7, -119]}>
         <group
           position={[-88.64, -40.87, -16.14]}

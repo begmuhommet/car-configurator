@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { Color, MeshStandardMaterial } from "three";
 
@@ -10,7 +10,11 @@ const Porsche: React.FC<IProps> = (props) => {
   const { color, ...rest } = props;
 
   // @ts-ignore
-  const { nodes, materials } = useGLTF("/models/porsche.glb");
+  const { scene, nodes, materials } = useGLTF("/models/porsche.glb");
+
+  useLayoutEffect(() => {
+    scene.traverse((obj) => obj.type === "Mesh" && (obj.castShadow = true));
+  }, [scene]);
 
   useEffect(() => {
     Object.entries(materials).forEach(([key, value]) => {

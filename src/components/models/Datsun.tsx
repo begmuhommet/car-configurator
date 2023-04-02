@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 
 import { useGLTF } from "@react-three/drei";
 import { Color, MeshStandardMaterial } from "three";
@@ -20,10 +20,14 @@ interface IProps {
 }
 
 const Datsun: React.FC<IProps> = (props) => {
-  const { color } = props;
+  const { color, ...rest } = props;
 
   // @ts-ignore
-  const { nodes, materials } = useGLTF("/models/datsun.glb");
+  const { scene, nodes, materials } = useGLTF("/models/datsun.glb");
+
+  useLayoutEffect(() => {
+    scene.traverse((obj) => obj.type === "Mesh" && (obj.castShadow = true));
+  }, [scene]);
 
   useEffect(() => {
     Object.entries(materials).forEach(([key, value]) => {
@@ -34,7 +38,7 @@ const Datsun: React.FC<IProps> = (props) => {
   }, [color]);
 
   return (
-    <group {...props} dispose={null}>
+    <group {...rest} dispose={null}>
       <mesh
         geometry={nodes.Cylinder007_alloy_0_1.geometry}
         material={materials.alloy}
