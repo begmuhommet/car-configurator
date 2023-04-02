@@ -1,4 +1,4 @@
-import { OrbitControls, Stage } from "@react-three/drei";
+import { MeshReflectorMaterial, OrbitControls, Stage } from "@react-three/drei";
 import { useControls } from "leva";
 import Lambargini from "./models/Lambargini";
 import Datsun from "./models/Datsun";
@@ -13,7 +13,7 @@ enum CarModel {
 const World = () => {
   const { color, model, autoRotate } = useControls({
     model: {
-      options: [CarModel.Lambargini, CarModel.Datsun, CarModel.Porsche],
+      options: [CarModel.Datsun, CarModel.Lambargini, CarModel.Porsche],
     },
     color: "#9a9a9a",
     autoRotate: true,
@@ -21,15 +21,27 @@ const World = () => {
 
   return (
     <>
-      <Stage
-        intensity={1}
-        environment="city"
-        shadows={{ type: "accumulative", color, colorBlend: 2, opacity: 2 }}
-      >
-        {model === CarModel.Lambargini && <Lambargini color={color} />}
+      <Stage environment="studio" intensity={1}>
         {model === CarModel.Datsun && <Datsun color={color} />}
+        {model === CarModel.Lambargini && <Lambargini color={color} />}
         {model === CarModel.Porsche && <Porsche color={color} />}
       </Stage>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.7, 0]}>
+        <planeGeometry args={[170, 170]} />
+        <MeshReflectorMaterial
+          blur={[300, 100]}
+          resolution={2048 / 2}
+          mixBlur={1}
+          mixStrength={40}
+          roughness={1}
+          depthScale={1.2}
+          minDepthThreshold={0.4}
+          maxDepthThreshold={1.4}
+          color="#101010"
+          metalness={1}
+          mirror={1}
+        />
+      </mesh>
       <OrbitControls
         makeDefault
         enableZoom={false}
