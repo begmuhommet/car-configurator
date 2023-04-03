@@ -14,6 +14,20 @@ function App() {
         <color attach="background" args={["#101010"]} />
       </Canvas>
       <Loader />
+      <a
+        href="https://github.com/begmuhommet/car-configurator"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "fixed",
+          left: "10px",
+          bottom: "10px",
+          color: "white",
+          textDecoration: "none",
+        }}
+      >
+        Source code
+      </a>
     </div>
   );
 }
